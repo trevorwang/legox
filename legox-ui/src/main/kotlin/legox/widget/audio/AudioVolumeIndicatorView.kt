@@ -1,6 +1,7 @@
 package legox.widget.audio
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,16 +9,22 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import legox.core.dp
+import mingsin.audio.widget.R
 
-class AudioVolumeIndicatorView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) :
+class AudioVolumeIndicatorView(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyleAttr: Int,
+    defStyleRes: Int
+) :
     View(context, attrs, defStyleAttr, defStyleRes) {
 
     private val paint = Paint()
-    private val columnCount = 20
-    private val columnHeightArray = Array(columnCount) { 0 }
-    private val columnMargin = 4.dp
-    private val verticalEdge = 10.dp
-    private val minColumnHeight = 2.dp
+    private val columnCount: Int
+    private val columnHeightArray: Array<Int>
+    private val columnMargin: Int
+    private val verticalEdge: Int
+    private val minColumnHeight: Int
     var audioVolumeFunction: (() -> Int)? = null
     private val postRunnable = {
         updateColumnHeight()
@@ -35,7 +42,27 @@ class AudioVolumeIndicatorView(context: Context, attrs: AttributeSet?, defStyleA
     )
 
     init {
-        paint.color = Color.LTGRAY
+        context.theme.obtainStyledAttributes(
+            attrs, R.styleable.AudioVolumeIndicatorView,
+            0, 0
+        ).apply {
+            try {
+                paint.color =
+                    getColor(R.styleable.AudioVolumeIndicatorView_indicatorColor, Color.LTGRAY)
+                columnMargin =
+                    getDimensionPixelSize(R.styleable.AudioVolumeIndicatorView_columnMargin, 4.dp)
+                verticalEdge =
+                    getDimensionPixelSize(R.styleable.AudioVolumeIndicatorView_verticalEdge, 10.dp)
+                minColumnHeight = getDimensionPixelSize(
+                    R.styleable.AudioVolumeIndicatorView_minColumnHeight, 2.dp
+                )
+                columnCount = getInteger(R.styleable.AudioVolumeIndicatorView_columnCount, 20)
+            } finally {
+                recycle()
+            }
+        }
+
+        columnHeightArray = Array(columnCount) { 0 }
     }
 
 

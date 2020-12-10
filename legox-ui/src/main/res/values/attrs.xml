@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AudioVolumeIndicatorView">
+        <attr name="indicatorColor" format="reference|color" />
+        <attr name="columnMargin" format="dimension|reference" />
+        <attr name="verticalEdge" format="dimension|reference" />
+        <attr name="minColumnHeight" format="dimension|reference" />
+        <attr name="columnCount" format="integer" />
+    </declare-styleable>
+</resources>
