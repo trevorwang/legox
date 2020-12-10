@@ -1,3 +1,4 @@
-include ':library'
+include ':legox-core'
+include ':legox-ui'
 include ':app'
-rootProject.name = "AudioWaves"
+rootProject.name = "LegoX"

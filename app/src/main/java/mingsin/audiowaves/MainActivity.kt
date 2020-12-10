@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
+        Timber.plant(Timber.DebugTree())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
