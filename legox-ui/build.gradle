@@ -12,8 +12,8 @@ dependencies {
     implementation AndroidX.appcompat
     implementation AndroidX.design
     implementation project(path: ':legox-core')
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    api 'com.jakewharton.timber:timber:4.7.1'
+    testImplementation Test.junit
+    androidTestImplementation Test.test_ext
+    androidTestImplementation Test.espresso
+    api Libs.timber
 }

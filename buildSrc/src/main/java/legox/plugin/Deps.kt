@@ -33,3 +33,9 @@ object Kt {
 object Libs {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
+
+object Test {
+    const val junit = "junit:junit:4.13.1"
+    const val test_ext = "androidx.test.ext:junit:1.1.2"
+    const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+}
