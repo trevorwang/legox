@@ -1,5 +1,7 @@
 package mingsin.audiowaves
 
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -9,15 +11,13 @@ import android.view.MenuItem
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-
+    var newIcon = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            switchNewIcon(!newIcon)
         }
         Timber.plant(Timber.DebugTree())
     }
@@ -36,5 +36,31 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    /**
+     * 切换 app icon
+     * https://juejin.cn/post/6930786419396837384
+     */
+    private fun switchNewIcon(newIcon: Boolean) {
+
+        val oldActivity = ComponentName(applicationContext, MainActivity::class.java)
+        val newActivity =
+            ComponentName(applicationContext, "mingsin.audiowaves.SplashAliasActivity")
+
+        val toDisable = if (newIcon) oldActivity else newActivity
+        val toEnable = if (newIcon) newActivity else oldActivity
+        applicationContext.packageManager.setComponentEnabledSetting(
+            toDisable,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
+
+        applicationContext.packageManager.setComponentEnabledSetting(
+            toEnable,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+        this.newIcon = newIcon
     }
 }

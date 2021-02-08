@@ -1,4 +1,0 @@
-include ':legox-core'
-include ':legox-ui'
-include ':app'
-rootProject.name = "LegoX"
